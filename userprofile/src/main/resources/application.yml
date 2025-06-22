@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: userprofile
+  datasource:
+#    url: jdbc:postgresql://localhost:5432/userprofile
+    url: jdbc:postgresql://db:5432/userprofile
+    username: postgres
+    password: nguyenkhang
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8080
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: changeit
+#    key-store-type: PKCS12

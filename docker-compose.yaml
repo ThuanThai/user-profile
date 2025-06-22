@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  presentation:
+    build: ./userprofile-client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - appication
+    networks:
+      - userprofile-net
+  appication:
+    build: ./userprofile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - userprofile-net
+  db:
+    build: ./postgres
+    ports:
+      - "5431:5432"
+    networks:
+      - userprofile-net
+networks:
+  userprofile-net:
+    driver: bridge

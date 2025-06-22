@@ -1,0 +1,27 @@
+@startuml
+skinparam monochrome true
+
+package "Presentation Tier (User Interface)" {
+  [React App] <--> [API Client]
+}
+
+package "Application Tier (Spring Boot Application)" {
+  [API Client] <--> [User Controller] : REST API
+  [User Controller] <--> [User Service]
+  [User Service] <--> [User Repository]
+  [User Service] --> [RSA Encryption]
+}
+
+package "Data Tier (PostgreSQL Database)" {
+  [User Repository] <--> [Users Table] : JDBC
+}
+
+note right of [RSA Encryption]
+  Encrypts user data using RSA
+end note
+
+note right of [API Client]
+  Decrypts user data using
+  RSA private key
+end note
+@enduml

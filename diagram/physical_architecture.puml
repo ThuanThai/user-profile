@@ -1,0 +1,40 @@
+@startuml
+skinparam monochrome true
+
+node "Host Machine (Network: user-profile)" {
+  
+  node "React Container" <<Docker Container>> {
+    [React App]
+  }
+  
+  node "Spring Boot Container" <<Docker Container>> {
+    [Spring Boot App]
+    artifact "UserController.java"
+    artifact "User.java"
+    artifact "UserService.java"
+    artifact "UserRepository.java"
+  }
+  
+  node "PostgreSQL Container" <<Docker Container>> {
+    [PostgreSQL DB]
+  }
+}
+
+[React App] --> [Spring Boot App] : HTTP
+[Spring Boot App] --> [PostgreSQL DB] : JDBC
+
+note right of [React App]
+  Exposed on port 3000
+  Decrypts user data using RSA private key
+end note
+
+note right of [Spring Boot App]
+  Exposed on port 8080
+  RSA encrypting user data
+end note
+
+note right of [PostgreSQL DB]
+  Exposed on port 5432
+end note
+
+@enduml
